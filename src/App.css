@@ -10,7 +10,16 @@
   color: orange;
   letter-spacing: 3px;
 }
-
+.pokemon-list-wrapper #loading {
+  font-size: 22px;
+  font-weight: 600;
+  color: orangered;
+}
+.pokemon-list-wrapper h2 {
+  letter-spacing: 3px;
+  border-bottom: 2px solid olivedrab;
+  display: inline-block;
+}
 .search-wrapper {
   margin: 0 auto;
 }

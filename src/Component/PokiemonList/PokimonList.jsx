@@ -6,13 +6,21 @@ function PokimonList() {
 
     const [pokemonList, setPokemonlist] = useState();
     const [isLoading, setLoading] = useState(true)
+    const [nextUrl, setNext] = useState('')
+    const [prevUrl, setPrev] = useState('')
 
-    const POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon';
+   // const POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon';
+    // for fetching data we are using useState because we want to fetch next and previous data
+   const [Pokedex_url, setPokedex_url] = useState('https://pokeapi.co/api/v2/pokemon')
     async function downloadPokemons() {
         try {
-            const response = await axios.get(POKEMON_URL); // this downloads list of 20 pokemons
+            setLoading(true)
+            const response = await axios.get(Pokedex_url); // this downloads list of 20 pokemons
             const pokemonResult = response.data.results;  // we get array of pokemon
             console.log(response.data)
+            // setting next and prev, url from data
+            setNext(response.data.next);
+            setPrev(response.data.previous);
             // iterating the array of pokemon and creating array of pokemon promise that will give array of 20 pokemon.
             const pokemonResultPromise = pokemonResult.map((pokemon) => axios.get(pokemon.url))
             // passing that promise array to axios.all()
@@ -41,22 +49,28 @@ function PokimonList() {
 
     useEffect( () => {
         downloadPokemons();
-    }, [])
+    }, [Pokedex_url])
 
   return (
     <div className="pokemon-list-wrapper">
         <h2>Pokemon List...</h2>
         <div className='pokemon-lists'>
             {
-                (isLoading) ? 'Loading...' : 
+                (isLoading) ? <p id='loading'>Loading...</p> : 
                 pokemonList.map((poke) => 
                     <PokemonDetail name={poke.name} image={poke.image} id={poke.id} />
                 )
             }
         </div>
         <div className='prev-next-btn'>
-            <button className='prev-btn'>Prev..</button>
-            <button className='next-btn'>Next..</button>
+            <button disabled={prevUrl===null}
+             onClick={() => setPokedex_url(prevUrl)}
+            className='prev-btn'>
+                Prev..</button>
+            <button disabled={nextUrl===null}
+            onClick={() => setPokedex_url(nextUrl)}
+             className='next-btn'>
+                Next..</button>
         </div>
     </div>
   )
