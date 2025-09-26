@@ -46,13 +46,14 @@ function PokimonList() {
   return (
     <div className="pokemon-list-wrapper">
         <h2>Pokemon List...</h2>
-        {
-            (isLoading) ? 'Loading...' : 
-            pokemonList.map((poke) => 
-                <PokemonDetail name={poke.name} image={poke.image} id={poke.id} />
-            )
-
-        }
+        <div className='pokemon-lists'>
+            {
+                (isLoading) ? 'Loading...' : 
+                pokemonList.map((poke) => 
+                    <PokemonDetail name={poke.name} image={poke.image} id={poke.id} />
+                )
+            }
+        </div>
     </div>
   )
 }
