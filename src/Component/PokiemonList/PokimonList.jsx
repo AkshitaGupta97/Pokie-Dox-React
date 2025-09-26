@@ -54,6 +54,10 @@ function PokimonList() {
                 )
             }
         </div>
+        <div className='prev-next-btn'>
+            <button className='prev-btn'>Prev..</button>
+            <button className='next-btn'>Next..</button>
+        </div>
     </div>
   )
 }
