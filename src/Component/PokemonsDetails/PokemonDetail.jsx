@@ -1,5 +1,5 @@
 
-function PokemonDetail({name, image, id}) {
+function PokemonDetail({name, image, id, ability, moves}) {
   return (
     <div className="pokemon-wrap">
         <div className="poke-name-id">
@@ -7,6 +7,10 @@ function PokemonDetail({name, image, id}) {
           <div id="poke-name">{name}</div>
         </div>
         <div><img src={image} alt={name} /></div>
+        <div className="ability-move">
+          <p>Ability : <span>{ability}</span></p>
+          <p>Moves : <span>{moves}</span></p>
+        </div>
     </div>
   )
 }

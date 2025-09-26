@@ -17,7 +17,7 @@ function PokimonList() {
             setLoading(true)
             const response = await axios.get(Pokedex_url); // this downloads list of 20 pokemons
             const pokemonResult = response.data.results;  // we get array of pokemon
-            console.log(response.data)
+           // console.log(response.data)
             // setting next and prev, url from data
             setNext(response.data.next);
             setPrev(response.data.previous);
@@ -25,7 +25,7 @@ function PokimonList() {
             const pokemonResultPromise = pokemonResult.map((pokemon) => axios.get(pokemon.url))
             // passing that promise array to axios.all()
             const pokemonData = await axios.all(pokemonResultPromise);  // axios.all() => taske an array and works similar as promise.all(), where it waits for each results to be successful.
-            console.log(pokemonData);  // pokemonData = array of 20 pokemons
+            //console.log(pokemonData);  // pokemonData = array of 20 pokemons
             // iterate on data of each pokeman and extract some elements
             const res = pokemonData.map((pokeData) => {
                 const pokemon = pokeData.data;
@@ -58,7 +58,7 @@ function PokimonList() {
             {
                 (isLoading) ? <p id='loading'>Loading...</p> : 
                 pokemonList.map((poke) => 
-                    <PokemonDetail name={poke.name} image={poke.image} id={poke.id} />
+                    <PokemonDetail name={poke.name} image={poke.image} id={poke.id} ability={poke.ability} moves={poke.moves} />
                 )
             }
         </div>
