@@ -1,6 +1,6 @@
-import React from 'react'
+
 import Search from '../Search/Search'
-import PokimonList from '../../PokiemonList/PokimonList'
+import PokimonList from '../PokiemonList/PokimonList'
 
 function Pokedex() {
   return (
