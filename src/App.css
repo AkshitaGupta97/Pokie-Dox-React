@@ -1,14 +1,19 @@
+
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: orange;
+  letter-spacing: 3px;
+}
+
 /* pokemon - list*/
 .pokedex-wrapper {
   padding: 12px 16px;
   text-align: center;
 
-}
-.pokie-heading {
-  font-size: 28px;
-  font-weight: 700;
-  color: orange;
-  letter-spacing: 3px;
 }
 .pokemon-list-wrapper #loading {
   font-size: 22px;
@@ -57,6 +62,7 @@
   padding: 8px 18px;
   border-radius: 8px;
   border: none;
+  cursor: pointer;
 }
 .prev-next-btn button:hover {
   box-shadow: 2px 3px 3px gray;
@@ -116,6 +122,32 @@
   font-weight: 700;
   color: rgb(112, 112, 243);
 }
+
+/* PokePageDetails*/
+.pokemon-page-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid paleturquoise;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 2px 3px 4px bisque;
+  width: 60%;
+  margin: 0 auto;
+}
+.pokie-detail {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 36px;
+  color: bisque;
+}
+.pokemon-name{
+  color: khaki;
+}
+
+
+
 
 @media (max-width:600px) {
   .pokemon-lists {

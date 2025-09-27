@@ -9,7 +9,7 @@ function App() {
   return (
     <>
      <h1 className='pokie-heading'>
-     <Link to='/'> Pokedex</Link>
+     <Link className='heading' to='/'> Pokedex</Link>
       </h1>
       <CustomRoutes />
     </>

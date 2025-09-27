@@ -33,13 +33,13 @@ function PokePageDetail() {
 
   return (
      <div className="pokemon-page-detail">
-        <div className="pokemon-name">Name : {pokemon.name}</div>
-        <div className="pokemon-image"><img src={pokemon.image} alt={pokemon.name} /></div>
-        <div className="pokemon-height">Height : {pokemon.height}</div>
-        <div className="pokemon-weight">Weight : {pokemon.weight}</div>
-        <div className="pokemon-moves">Moves : {pokemon.moves}</div>
-        <div className="pokemon-ability">Ability : {pokemon.ability}</div>
-        <div className="pokemon-types"> Types : {pokemon.types && pokemon.types.map((t) => <div key={t}>{t}</div> )}
+        <div className="pokie-detail pokemon-name">Name : {pokemon.name}</div>
+        <div className="pokie-detail"><img src={pokemon.image} alt={pokemon.name} /></div>
+        <div className="pokie-detail">Height : {pokemon.height}</div>
+        <div className="pokie-detail">Weight : {pokemon.weight}</div>
+        <div className="pokie-detail">Moves : {pokemon.moves}</div>
+        <div className="pokie-detail">Ability : {pokemon.ability}</div>
+        <div className="pokie-detail"> Types : {pokemon.types && pokemon.types.map((t) => <span key={t}>{t}</span> )}
         </div>
     </div>
   )

@@ -24,20 +24,21 @@ function PokimonList() {
     async function downloadPokemons() {
         try {
             {/* setLoading(true) */}
-            setPokemonListState({...pokemonListState, isLoading: true})
+            setPokemonListState((state)=>({...state, isLoading: true}));
             const response = await axios.get(pokemonListState.pokedex_Url); // this downloads list of 20 pokemons
-            const pokemonResult = response.data.results;  // we get array of pokemon
+            const pokemonResult = response.data?.results;  // we get array of pokemon
             console.log(response.data)
             // setting next and prev, url from data
            {/*
              setNext(response.data.next);
             setPrev(response.data.previous);
              */}
-            setPokemonListState({
-                ...pokemonListState, 
+
+            setPokemonListState((state) => ({
+                ...state,  //...pokemonListState, 
                 nextUrl : response.data.next,  
-                prevUrl : response.data.previous
-            });
+                prevUrl : response.data.previous,
+            }));  // here we are creating a arrow function, as setPokemonListState is rendered multiple times, (for more :- see queuing a state searies of react.)
             
             // iterating the array of pokemon and creating array of pokemon promise that will give array of 20 pokemon.
             const pokemonResultPromise = pokemonResult.map((pokemon) => axios.get(pokemon.url))
@@ -59,7 +60,14 @@ function PokimonList() {
                 setLoading(false)
             */}
 
-            setPokemonListState({...pokemonListState, pokemonList : res, isLoading: false})
+            setPokemonListState((state) => (
+                {
+                    ...state,   //...pokemonListState, 
+                    pokemonList : res, 
+                    isLoading: false
+
+                })
+            );
 
             
         }catch(error){
@@ -76,21 +84,31 @@ function PokimonList() {
         <h2>Pokemon List...</h2>
         <div className='pokemon-lists'>
             {
-                (isLoading) ? <p id='loading'>Loading...</p> : 
-                pokemonListState.map((poke) => 
+                (pokemonListState.isLoading) ? <p id='loading'>Loading...</p> : 
+                pokemonListState.pokemonList.map((poke) => 
                     <PokemonDetail key={poke.id} name={poke.name} image={poke.image} id={poke.id} />
                 )
             }
         </div>
         <div className='prev-next-btn'>
-            <button disabled={prevUrl===null}
-             onClick={() => setPokemonListState({...pokemonListState, pokedex_Url : pokemonListState.prevUrl})}
-            className='prev-btn'>
-                Prev..</button>
-            <button disabled={nextUrl===null}
-            onClick={() => setPokemonListState({...pokemonListState, pokedex_Url : pokemonListState.nextUrl})}
+            <button disabled={pokemonListState.prevUrl===null}
+             onClick={() => {
+                const urlToSet =  pokemonListState.prevUrl;
+                setPokemonListState({...pokemonListState, 
+                    pokedex_Url : urlToSet})
+                }}
+                className='prev-btn'>
+                Prev.. 
+            </button>
+
+            <button disabled={pokemonListState.nextUrl===null}
+            onClick={() => { 
+                const urlToSet = pokemonListState.nextUrl;
+                setPokemonListState({...pokemonListState, pokedex_Url : urlToSet})
+            }}
              className='next-btn'>
-                Next..</button>
+                Next.. 
+            </button>
         </div>
     </div>
   )
