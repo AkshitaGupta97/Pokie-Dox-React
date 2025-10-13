@@ -130,19 +130,16 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border-radius: 8px;
-  box-shadow: -4px -3px 4px bisque;
-  border: 2px solid gold;
   width: 70%;
   margin: 0 auto;
 }
 .pokie-detail {
   font-size: 22px;
   font-weight: 600;
-  line-height: 36px;
+  line-height: 30px;
   color: bisque;
   letter-spacing: 3px;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   font-size: 1.1rem;
 }
 .pokemon-name{
@@ -156,7 +153,6 @@
   max-width: 180px;
   height: auto;
   border-radius: 10px;
-  background: #fff;
   box-shadow: 0 1px 8px rgba(0,0,0,0.07);
 }
 .pokemon-more-details {
@@ -181,12 +177,12 @@
 }
 
 .pokemon-card {
-  background: #fff;
+  background: burlywood;
   border-radius: 8px;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
-  padding: 12px 8px;
+  box-shadow: 0 1px 8px rgba(117, 117, 117, 0.07);
+  padding: 12px;
   text-align: center;
-  width: 120px;
+  width: 40%;
   transition: box-shadow 0.2s;
 }
 
@@ -199,6 +195,7 @@
   font-weight: 600;
   margin-bottom: 8px;
   text-transform: capitalize;
+  color: black;
 }
 
 .pokemon-card img {
@@ -235,6 +232,10 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     font-size: 14px;
+  }
+  .poke-card-name {
+    font-size: x-small;
+    font-weight: 400;
   }
   .pokemon-more-items {
     gap: 10px;

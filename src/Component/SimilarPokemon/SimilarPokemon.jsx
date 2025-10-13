@@ -12,7 +12,7 @@ function SimilarPokemon({id}) {
   return (
     <div className='pokemon-card' key={id}>
       <Link to={`/pokemon/${id}`} >
-          <div className='poke-card-name'>{poke.name}</div>
+          <p className='poke-card-name'>{poke.name}</p>
           <img src={poke.image} alt={poke.name} />
       </Link>
     </div>
