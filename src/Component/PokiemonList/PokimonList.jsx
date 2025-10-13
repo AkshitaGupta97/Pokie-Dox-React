@@ -3,7 +3,10 @@ import PokemonDetail from '../PokemonsDetails/PokemonDetail';
 import usePokemonList from '../../hooks/usePokemonList';
 
 function PokimonList() {
-    const [pokemonListState, setPokemonListState] = usePokemonList();
+
+    const POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon'
+
+    const {pokemonListState, setPokemonListState} = usePokemonList(POKEMON_URL);
  
   return (
     <div className="pokemon-list-wrapper">
@@ -16,7 +19,8 @@ function PokimonList() {
                 )
             }
         </div>
-        <div className='prev-next-btn'>
+
+        <div className='prev-next-btn'>       
             <button disabled={pokemonListState.prevUrl===null}
              onClick={() => {
                 const urlToSet =  pokemonListState.prevUrl;

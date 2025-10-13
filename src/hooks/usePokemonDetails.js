@@ -1,10 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import usePokemonList from "./usePokemonList";
-
+import downloadPokemons from "./downloadPokemons";
 
 function usePokemonDetails(id, pokemonName) {
     const [pokemon, setPokemon] = useState({});
+
+    const [pokemonListState, setPokemonListState] = useState({
+        pokemonList : [],
+        isLoading : true,
+        pokedex_Url : 'https://pokeapi.co/api/v2/pokemon',
+        nextUrl : '',
+        prevUrl : ''
+    })
 
     async function downloadDetailsPoke() {
         try {
@@ -18,39 +25,49 @@ function usePokemonDetails(id, pokemonName) {
 
             const pokemonofSameTypes = await axios.get(`https://pokeapi.co/api/v2/type/${response.data.types ? response.data.types[0].type.name : ''}`)
 
-            console.log(response)
-            const res = response.data;
-            console.log(res);
-            console.log("new api of types", pokemonofSameTypes);
+         //   console.log(response)
+
+            const resPokemon = response.data;
+
+          //  console.log('res -> ',resPokemon);
+          //  console.log("new api of types", pokemonofSameTypes);
 
             setPokemon({
-                name: res.name,
-                image: res.sprites.other.dream_world.front_default,
-                moves: res.moves[0].move.name,
-                ability: res.abilities[0].ability.name,
-                weight: res.weight,
-                height: res.height,
-                types: res.types.map((t) => t.type.name),
+                name: resPokemon.name,
+                image: resPokemon.sprites.other.dream_world.front_default,
+                moves: resPokemon.moves[0].move.name,
+                ability: resPokemon.abilities[0].ability.name,
+                weight: resPokemon.weight,
+                height: resPokemon.height,
+                types: resPokemon.types.map((t) => t.type.name),
                 similarPokemons: pokemonofSameTypes.data.pokemon
             })
-            console.log(pokemon);
-            console.log("types of poke", res.types);
 
-            setPokemonListState({ ...pokemonListState, type: res.types?.response })
+           // console.log('use pokemons id  -> ',pokemon);
+           // console.log("types of poke", resPokemon.types);
+
+            setPokemonListState({ ...pokemonListState, type: resPokemon.types?.resPokemonponse })
         }
+
         catch(error) {
             console.log("Something went wrong", error)
         }
-
     }
 
-    const [pokemonListState, setPokemonListState] = usePokemonList();
+    async function downloadPokemonAndRelated(id){
+        await downloadDetailsPoke()
+        await downloadPokemons(pokemonListState, setPokemonListState);
+    }
+
+   // console.log("Pokemon details : ", pokemon);
+
+    //const [pokemonListState, setPokemonListState] = useState({});
 
     useEffect(() => {
-        downloadDetailsPoke()
-    }, [])
+        downloadPokemonAndRelated(id)
+    }, [id, pokemonName])
 
-    return [pokemon]
+    return [pokemon, pokemonListState]
 }
 
 export default usePokemonDetails

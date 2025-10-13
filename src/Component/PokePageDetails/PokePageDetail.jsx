@@ -1,15 +1,30 @@
-import { useEffect, useState } from "react";
+
 import { useParams } from "react-router-dom"
-import axios from 'axios'
 import usePokemonDetails from "../../hooks/usePokemonDetails";
+import SimilarPokemon from "../SimilarPokemon/SimilarPokemon";
+import { useEffect } from "react";
+
 
 function PokePageDetail({pokemonName}) {
     const {id} = useParams();
     const [pokemon] = usePokemonDetails(id, pokemonName);
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [id])
+    
+    // Extract similar Pokemon Ids
+    // Extract ID from URL, e.g. https://pokeapi.co/api/v2/pokemon/25/   parts[parts.length - 2] = 25
+    const similarIds = pokemon.similarPokemons
+    ? pokemon.similarPokemons.slice(0, 24).map((p) =>
+        p.pokemon.id || Number(p.pokemon.url.split("/").filter(Boolean).pop())
+      )
+    : [];
+      
+   // console.log('similar ids of apge',similarIds);
 
-  return (
-     <div className="pokemon-page-detail">
+    return (
+    <div className="pokemon-page-detail">
         <div className="pokie-detail pokemon-name">Name : {pokemon.name}</div>
         <div className="pokie-detail"><img src={pokemon.image} alt={pokemon.name} /></div>
         <div className="pokie-detail">Height : {pokemon.height}</div>
@@ -21,19 +36,21 @@ function PokePageDetail({pokemonName}) {
         </div>
 
         {
-            pokemon.types && pokemon.similarPokemons && 
-            <div>
-                more {pokemon.types[0]} type pokemons  
-                <ul>
-                    {pokemon.similarPokemons.map((p) => 
-                        <li key={p.pokemon.url}>
-                            {p.pokemon.name}
-                        </li>
-                    )}
-                </ul>
+            pokemon.types && similarIds.length > 0 && 
+            <div className="pokemon-more-details">
+                <p>More {pokemon.types[0]} type pokemons</p>  
+
+                <div className="pokemon-more-items">
+                    {
+                        similarIds.map(id => (
+                            <SimilarPokemon id={id} key={id} />
+                        ))
+                    }
+                    
+                </div>
+
             </div>
         }
-
 
     </div>
   )

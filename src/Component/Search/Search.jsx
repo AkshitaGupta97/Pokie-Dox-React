@@ -1,14 +1,15 @@
+import useDebounce from "../../hooks/useDebounce"
 
+function Search({ updateSeatchTerm }) {
+  const debounceCallback = useDebounce((e) => updateSeatchTerm(e.target.value), 500)
 
-
-function Search({updateSeatchTerm}) {
   return (
+    
     <div className="search-wrapper">
-        <input id="pekemon-name-search" 
-        type="text" placeholder="Enter Search.." 
-        onChange={(e) => updateSeatchTerm(e.target.value)}
-        />
-
+      <input id="pekemon-name-search"
+        type="text" placeholder="Enter Search.."
+        onChange={debounceCallback}
+      />
     </div>
   )
 }
