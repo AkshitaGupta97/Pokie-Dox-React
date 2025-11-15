@@ -7,7 +7,7 @@ function SimilarPokemon({id}) {
     const [poke] = usePokemonDetails(id);
     if(!poke || !poke.image) return null;
 
-    console.log("poke in cards ", poke)
+  //  console.log("poke in cards ", poke)
 
   return (
     <div className='pokemon-card' key={id}>
